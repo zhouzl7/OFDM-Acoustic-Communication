@@ -34,6 +34,7 @@ class Demodulate {
     private static FastFourierTransformer fastFourierTransformer = new FastFourierTransformer(DftNormalization.STANDARD);
 
     static String Decode(double[] data) {
+        BERCalculator.setTimeStart(System.currentTimeMillis());
         double[] beginChirp = Chirp(HeadChirpBeginFrequency, HeadChirpEndFrequency, HeadChirpLength);
         int beginIndex = ShiftPosition(data, 0, beginChirp) + HeadChirpLength;
         double[] endChirp = Chirp(TailChirpBeginFrequency, TailChirpEndFrequency, TailChirpLength);
@@ -42,6 +43,8 @@ class Demodulate {
         int signalCount = (endIndex - beginIndex) / SignalRealLength;
         boolean[] decoded = new boolean[signalCount * OFDMLength];
         OFDMDecode(data, beginIndex, endIndex, decoded);
+        BERCalculator.setTimeEnd(System.currentTimeMillis());
+        BERCalculator.setDataDecode(decoded);
         return BitArrayToString(decoded);
     }
 

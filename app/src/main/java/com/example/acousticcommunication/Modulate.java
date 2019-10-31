@@ -15,6 +15,7 @@ class Modulate {
 
     static double[] Encode(String message) {
         boolean[] data = StringToBitArray(message);
+        BERCalculator.setDataEncode(data);
         int length = data.length * SignalRealLength / OFDMLength;
         Complex[] content = new Complex[length + HeadChirpLength + TailChirpLength];
         Arrays.fill(content, new Complex(0));

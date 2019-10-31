@@ -136,7 +136,10 @@ public class MainActivity extends AppCompatActivity {
                     PaintCanvasView.signal = signal;
                     PaintCanvasView.color = Color.RED;
                     PaintCanvasView.invalidate();
-                    ShowMessage("Decoded data \"" + Demodulate.Decode(signal) + "\"");
+                    ShowMessage("Decoded data \"" + Demodulate.Decode(signal) + "\"\n" +
+                            "BER: " + BERCalculator.calculateBER() + "\n" +
+                            "Bit length: " + BERCalculator.getDataLength() + "\n" +
+                            "Speed: " + BERCalculator.getDemodulateSpeed() + " bits/s");
                     DecodeRecordButton.setEnabled(false);
                 } catch (IOException e) {
                     Log.e("AcousticCommunication", "read record file failed");
